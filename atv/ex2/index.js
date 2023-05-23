@@ -17,19 +17,19 @@ function playIP(e) {
     if (op === "par")
         if (par) {
             res.innerHTML = `Você ganhou! ${p1} + ${p2} = ${sum}, que é par.`;
-            res_img.src = "/ex2/triste.png";
+            res_img.src = "/georgia/atv/ex2/triste.png";
         }
         else {
             res.innerHTML = `Você perdeu :( ${p1} + ${p2} = ${sum}, que é ímpar.`;
-            res_img.src = "/ex2/feliz.png";
+            res_img.src = "/georgia/atv/ex2/feliz.png";
         }
     else if (!par) {
         res.innerHTML = `Você ganhou! ${p1} + ${p2} = ${sum}, que é ímpar.`;
-        res_img.src = "/ex2/triste.png";
+        res_img.src = "/georgia/atv/ex2/triste.png";
     }
     else {
         res.innerHTML = `Você perdeu :( ${p1} + ${p2} = ${sum}, que é par.`;
-        res_img.src = "/ex2/feliz.png";
+        res_img.src = "/georgia/atv/ex2/feliz.png";
     }
 }
 form?.addEventListener('submit', playIP);
