@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/ex2/index.js" type="text/javascript" defer></script>
+  <title>Document</title>
+  <style>
+    html {
+      background-color: black;
+      color: #9d68a3;
+      font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    }
+
+    button {
+      display: block;
+      margin: 0 auto;
+      font-size: large;
+      border-radius: 50%;
+      border-color: #9d68a3;
+      border-style: solid;
+      color: #9d68a3;
+      background-color: #ffffff2c;
+      backdrop-filter: blur(15px);
+      padding: 15px;
+    }
+
+    .center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      max-width: 50rem;
+      border-color: #9d68a3;
+      border-style: dashed;
+      border-width: 5px;
+      border-radius: 25px;
+      height: 15rem;
+      padding: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      height: 100%;
+      justify-content: space-between;
+    }
+
+    .align-vertical {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .radio {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 50%;
+      border: 2px solid #9d68a3;
+      width: 1.5em;
+      height: 1.5em;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    .radio:checked {
+      background-color: #9d68a3;
+    }
+
+    label {
+      margin-left: 0.5em;
+      font-size: large;
+      font-weight: 900;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      max-width: 5rem;
+      border-radius: 5px;
+      border: 2px solid #9d68a3;
+      background-color: #ffffff2c;
+      color: white;
+      backdrop-filter: blur(15px);
+      padding: 5px;
+      font-size: large;
+      font-weight: 900;
+      outline: none;
+    }
+
+    /* align the results to the top right of the container class without interfiering the elements on the left */
+    .result {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 20px;
+      font-size: large;
+      font-weight: 900;
+      height: 100%;
+    }
+    #result-img {
+      width: auto;
+      height: 10rem;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      padding: .5rem;
+    }
+  </style>
+</head>
+<body class="center">
+  <h1 style="font-size: 4rem; position: absolute; left: 50%; top: 0; transform: translate(-50%, -50%); width: 100vw; text-align: center;">Par ou Impar com Kuromi</h1>
+  <form id="form" method="post" class="container ">
+    <div>
+      <input class="radio" type="radio" name="op" value="par">
+      <label for="par">Par</label>
+    </div>
+    <div>
+      <input class="radio" type="radio" name="op" value="imp">
+      <label for="impar">Impar</label>
+    </div>
+    <input type="number" name="num" id="num" min="0" max="10">
+    <button type="submit">Jogar</button>
+    <div class="result">
+      <p id="result-text"></p>
+    </div>
+    <img id="result-img" src="" alt="">
+  </form>
+</body>
+</html>

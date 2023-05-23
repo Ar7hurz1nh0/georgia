@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="/ex1/index.js" type="text/javascript" defer></script>
+  <style>
+    html {
+      background-color: black;
+      color: pink;
+      font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      transform: translate(-2.5%);
+    }
+
+    ul li {
+      border-radius: 50%;
+      background-color: #ffffff2c;
+      backdrop-filter: blur(15px);
+      border-color: pink;
+      border-style: solid;
+      color: pink;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 5px;
+    }
+
+    button {
+      display: block;
+      margin: 0 auto;
+      font-size: large;
+      border-radius: 50%;
+      border-color: pink;
+      border-style: solid;
+      color: pink;
+      background-color: #ffffff2c;
+      backdrop-filter: blur(15px);
+      padding: 15px;
+    }
+
+    .center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 50rem;
+      border-color: pink;
+      border-style: dashed;
+      border-width: 5px;
+      border-radius: 25px;
+      height: 15rem;
+      padding: 20px;
+    }
+
+    .foto-container {
+      height: 90vh;
+      width: 50vw;
+      position: absolute;
+      overflow: hidden;
+      bottom: 0;
+      right: 0;
+      margin-bottom: 0;
+      margin-right: 0;
+      z-index: -1;
+    }
+    .foto {
+      height: 100%;
+      width: auto;
+      right: 0;
+      position: absolute;
+    }
+  </style>
+</head>
+<body class="center">
+  <h1 style="font-size: 8rem; position: absolute; left: 50%; top: 0; transform: translate(-50%, -50%);">Bingo</h1>
+  <div class="container">
+    <ul id="resultado"></ul>
+    <button onclick="genList()">Sortear</button>
+  </div>
+    <footer class="foto-container">
+      <img src="/ex1/hk.jpg" alt="Hello Kitty" class="foto">
+    </footer>
+</body>
+</html>
