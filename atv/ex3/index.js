@@ -11,9 +11,9 @@ function play(event) {
     const p1 = document.getElementById('p1');
     const p2 = document.getElementById('p2');
     if (p1)
-        p1.src = `${player1}.png` ?? (() => { throw new Error('Jogada invalida'); })();
+        p1.src = `/georgia/atv/ex3/${player1}.png` ?? (() => { throw new Error('Jogada invalida'); })();
     if (p2)
-        p2.src = `${player2}.png` ?? (() => { throw new Error('Jogada invalida'); })();
+        p2.src = `/georgia/atv/ex3/${player2}.png` ?? (() => { throw new Error('Jogada invalida'); })();
     if (player1 === player2)
         result.innerText = 'Empate';
     else if (player1 === "pedra" && player2 === "tesoura")
