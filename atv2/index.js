@@ -97,4 +97,5 @@ mainBtn?.addEventListener('click', () => {
     void new Game(mainCards);
     mainInput?.remove();
     mainBtn?.remove();
+    mainAddBtn?.remove();
 });
