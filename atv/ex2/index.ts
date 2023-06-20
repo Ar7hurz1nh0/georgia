@@ -8,7 +8,7 @@ function playIP(e: SubmitEvent): void {
   const formData = new FormData(form);
 
   const p2 = Math.floor(Math.random() * 10);
-  const p1 = parseInt(formData.get('num')?.toString() || '0');
+  const p1 = parseInt(formData.get('num')?.toString() ?? '0');
 
   const op = formData.get('op')?.toString();
 
