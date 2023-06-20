@@ -76,14 +76,12 @@ class Game {
             winner.parentElement?.classList.add('winner');
         }
         else if (this.cards.filter(card => !card.isFlipped && !card.hasPlayed).length !== 0) {
-            console.log(document.querySelectorAll(`div[data-action="round"]`));
             document.querySelectorAll(`div[data-action="round"][data-selected]`).forEach(el => el.attributes.removeNamedItem('data-selected'));
             const round = this.cards.filter(card => !card.isFlipped && !card.hasPlayed)[0];
             document.querySelector(`div[data-card="${round?.name}"][data-action="round"]`)?.attributes.setNamedItem(document.createAttribute('data-selected'));
             round?.doRound(this.nextRound.bind(this));
         }
         else {
-            console.log('reset');
             this.cards.filter(card => !card.isFlipped).forEach(card => card.hasPlayed = false);
             document.querySelectorAll(`div[data-action="round"][data-selected]`).forEach(el => el.attributes.removeNamedItem('data-selected'));
             const round = this.cards.filter(card => !card.isFlipped && !card.hasPlayed)[0];
