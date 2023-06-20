@@ -5,6 +5,8 @@ class Card {
     canPlay = false;
     isFlipped = false;
     cards = [];
+    total = 0;
+    hasPlayed = false;
     callback;
     constructor(name) {
         this.name = name;
@@ -23,10 +25,7 @@ class Card {
         this.isFlipped = true;
         document.getElementById(this.name)?.classList.add('flip');
         const status = document.querySelector(`p[data-action="status"][data-card="${this.name}"]`) ?? { innerHTML: "" };
-        if (this.cards.reduce((a, b) => a + b, 0) === 21)
-            status.innerHTML = 'Você ganhou!';
-        else
-            status.innerHTML = 'Você perdeu!';
+        status.innerHTML = 'Aguardando...';
         this.endRound();
     }
     add() {
@@ -35,7 +34,8 @@ class Card {
         const value = Math.floor(Math.random() * 10) + 1;
         this.cards.push(value);
         document.querySelector(`span[data-action="value"][data-card="${this.name}"]`).innerHTML = this.cards.length.toString();
-        document.querySelector(`p[data-action="final"][data-card="${this.name}"]`).innerHTML = this.cards.reduce((a, b) => a + b, 0).toString();
+        this.total += value;
+        document.querySelector(`p[data-action="final"][data-card="${this.name}"]`).innerHTML = this.total.toString();
         this.endRound();
     }
     skip() {
@@ -53,41 +53,49 @@ class Card {
     }
     endRound() {
         this.canPlay = false;
+        this.hasPlayed = true;
         this.callback?.();
         this.callback = undefined;
     }
 }
 class Game {
     cards;
-    round = 0;
     constructor(cards) {
         this.cards = cards;
-        document.querySelector(`div[data-card="${this.cards[this.round]?.name}"][data-action="round"]`)?.attributes.setNamedItem(document.createAttribute('data-selected'));
+        document.querySelector(`div[data-card="${this.cards[0]?.name}"][data-action="round"]`)?.attributes.setNamedItem(document.createAttribute('data-selected'));
         cards[0]?.doRound(this.nextRound.bind(this));
     }
     nextRound() {
-        document.querySelector(`div[data-card="${this.cards[this.round]?.name}"][data-action="round"]`)?.attributes.removeNamedItem('data-selected');
-        this.round++;
-        if (this.round > this.cards.length - 1)
-            this.round = 0;
-        document.querySelector(`div[data-card="${this.cards[this.round]?.name}"][data-action="round"]`)?.attributes.setNamedItem(document.createAttribute('data-selected'));
-        if (this.cards[this.round]?.isFlipped) {
-            this.nextRound();
+        if (this.cards.filter(card => !card.isFlipped).length === 0) {
+            const closest = this.cards.reduce((prev, curr) => {
+                return (Math.abs(curr.total - 21) < Math.abs(prev.total - 21) ? curr : prev);
+            });
+            document.querySelectorAll('p[data-action="status"]').forEach(el => el.innerHTML = 'Você perdeu!');
+            const winner = document.querySelector(`p[data-action="status"][data-card="${closest.name}"]`) ?? { innerHTML: "", parentElement: undefined };
+            winner.innerHTML = 'Você ganhou!';
+            winner.parentElement?.classList.add('winner');
         }
-        else
-            this.cards[this.round]?.doRound(this.nextRound.bind(this));
+        else if (this.cards.filter(card => !card.isFlipped && !card.hasPlayed).length !== 0) {
+            console.log(document.querySelectorAll(`div[data-action="round"]`));
+            document.querySelectorAll(`div[data-action="round"][data-selected]`).forEach(el => el.attributes.removeNamedItem('data-selected'));
+            const round = this.cards.filter(card => !card.isFlipped && !card.hasPlayed)[0];
+            document.querySelector(`div[data-card="${round?.name}"][data-action="round"]`)?.attributes.setNamedItem(document.createAttribute('data-selected'));
+            round?.doRound(this.nextRound.bind(this));
+        }
+        else {
+            console.log('reset');
+            this.cards.filter(card => !card.isFlipped).forEach(card => card.hasPlayed = false);
+            document.querySelectorAll(`div[data-action="round"][data-selected]`).forEach(el => el.attributes.removeNamedItem('data-selected'));
+            const round = this.cards.filter(card => !card.isFlipped && !card.hasPlayed)[0];
+            document.querySelector(`div[data-card="${round?.name}"][data-action="round"]`)?.attributes.setNamedItem(document.createAttribute('data-selected'));
+            round?.doRound(this.nextRound.bind(this));
+        }
     }
 }
 const mainCards = [];
 const mainInput = document.getElementById('main-input');
-const nameList = document.getElementById('name-list');
 const mainBtn = document.getElementById('main-btn');
 const mainAddBtn = document.getElementById('main-add-btn');
-mainInput?.addEventListener('keyup', (e) => {
-    if (e.key === 'Enter') {
-        mainCards.push(new Card(mainInput.value));
-    }
-});
 mainAddBtn?.addEventListener('click', () => {
     if (!mainInput?.value)
         return;

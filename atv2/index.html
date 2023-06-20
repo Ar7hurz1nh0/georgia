@@ -13,6 +13,7 @@
         background-color: black;
         color: #fff;
         font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        overflow: hidden;
       }
       main {
         /* make the main element a flex container with a grid */
@@ -79,15 +80,60 @@
       .front[data-selected] {
         background-color: greenyellow;
       }
+      .winner {
+        background-color: green !important;
+      }
+      header {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        height: 10vh;
+        width: 100%;
+        overflow: hidden;
+      }
+      header > input {
+        margin: 0 0.5rem;
+      }
+      header > input#main-input {
+        border: none;
+        border-bottom: 1px solid #fff;
+        background: none;
+        color: #fff;
+        font-size: 1.5rem;
+        text-align: center;
+        width: 20rem;
+      }
+      header > input#main-add-btn {
+        border: none;
+        background: none;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      header > input#main-btn {
+        border: none;
+        background: none;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      header > input#main-btn:hover {
+        color: #ff28c9;
+      }
+      header > input#main-add-btn:hover {
+        color: #ff28c9;
+      }
     </style>
   </head>
   <body>
-    <main>
-      <input type="text" placeholder="Nome do jogador (enter para adicionar)" id="main-input"/>
-<input type="button" value="Adicionar" id="main-add-btn"/>
-
+    <header>
+      <input type="text" placeholder="Nome do jogador" id="main-input"/>
+      <input type="button" value="Adicionar" id="main-add-btn"/>
       <input type="button" value="Iniciar" id="main-btn"/>
-    </main>
+    </header>
+    <main></main>
   </body>
 </html>
-
