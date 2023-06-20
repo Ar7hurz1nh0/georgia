@@ -79,11 +79,17 @@ const mainCards: Card[] = [];
 const mainInput = document.getElementById('main-input') as HTMLInputElement | null;
 const nameList = document.getElementById('name-list') as HTMLUListElement | null;
 const mainBtn = document.getElementById('main-btn');
+const mainAddBtn = document.getElementById('main-add-btn');
 
 mainInput?.addEventListener('keyup', (e) => {
   if (e.key === 'Enter') {
     mainCards.push(new Card(mainInput.value));
   }
+})
+
+mainAddBtn?.addEventListener('click', () => {
+  if (!mainInput?.value) return;
+  mainCards.push(new Card(mainInput.value));
 })
 
 mainBtn?.addEventListener('click', () => {
