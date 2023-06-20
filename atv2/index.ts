@@ -64,14 +64,27 @@ class Game {
   }
 
   private nextRound() {
+    const closest = this.cards.reduce((prev, curr) => {
+      return (Math.abs(curr.total - 21) < Math.abs(prev.total - 21) ? curr : prev);
+    })
+    const difference = Math.abs(closest.total - 21);
     if (this.cards.filter(card => !card.isFlipped).length === 0) {
-      const closest = this.cards.reduce((prev, curr) => {
-        return (Math.abs(curr.total - 21) < Math.abs(prev.total - 21) ? curr : prev);
-      })
-      document.querySelectorAll('p[data-action="status"]').forEach(el => el.innerHTML = 'Você perdeu!');
-      const winner = document.querySelector(`p[data-action="status"][data-card="${closest.name}"]`) ?? { innerHTML: "", parentElement: undefined };
-      winner.innerHTML = 'Você ganhou!';
-      winner.parentElement?.classList.add('winner');
+      let winners: Card[] = [];
+      this.cards.forEach(card => Math.abs(card.total - 21) === difference && winners.push(card));
+      if (winners.length > 1) {
+        document.querySelectorAll('p[data-action="status"]').forEach(el => el.innerHTML = 'Você perdeu!');
+        winners.forEach(winner => {
+          const el = document.querySelector(`p[data-action="status"][data-card="${winner.name}"]`) ?? { innerHTML: "", parentElement: undefined };
+          el.innerHTML = 'Empate!';
+          el.parentElement?.classList.add('winner');
+        })
+      }
+      else {
+        document.querySelectorAll('p[data-action="status"]').forEach(el => el.innerHTML = 'Você perdeu!');
+        const winner = document.querySelector(`p[data-action="status"][data-card="${closest.name}"]`) ?? { innerHTML: "", parentElement: undefined };
+        winner.innerHTML = 'Você ganhou!';
+        winner.parentElement?.classList.add('winner');
+      }
     }
     else if (this.cards.filter(card => !card.isFlipped && !card.hasPlayed).length !== 0) {
       document.querySelectorAll(`div[data-action="round"][data-selected]`).forEach(el => el.attributes.removeNamedItem('data-selected'))
